@@ -125,5 +125,9 @@ dmypy.json
 .pyre/
 
 .DS_Store
-part1/
+outputs/
+Outputs/
+OUTPUTS/
 inputs/
+Inputs/
+INPUTS/
