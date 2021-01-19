@@ -25,20 +25,25 @@ if loginFlag.lower() == 'y':
     L.interactive_login(username)
 
 #loop
-done = 0
-failed = 0
+done = []
+failed = []
 for idx,code in enumerate(posts_codes):
     print('Downloading', code, idx+1, '/', len(posts_codes))
     try:
         post = Post.from_shortcode(L.context, code)
-        done += 1
+        done.append(code)
     except:
         print("Something went wrong, item will be skipped.")
-        failed += 1
+        failed.append(code)
     L.filename_pattern = code
     L.download_post(post, code)    
     sleeptime = random.uniform(1, 3)
     time.sleep(sleeptime)
 
-print('Downloaded posts:', done)
-print('Skipped posts:', failed)
+print('Downloaded posts:', len(done))
+print('Skipped posts:', len(failed))
+
+with open(folder + "/failed.csv", "w") as txt_file:
+    txt_file.write("not_downlaoded\n")
+    for code in failed:
+        txt_file.write(code + "\n")
