@@ -1,29 +1,32 @@
 import instaloader
-import time
-
-from numpy import random
-from time import sleep
-
 from instaloader import Post
+import time
+from time import sleep
+from numpy import random
+
+# Read posts list
 print('Which is the filename containing the posts codes?')
 file = input('path/to/file: ')
-
 f = open(file, 'r+')
 posts_codes = f.read().splitlines()
 print(len(posts_codes), 'posts to fetch 🦅')
 
-# Get instance
+# Get instaloade ready
 L = instaloader.Instaloader()
-
-# Login
-# L.interactive_login('iosonosempreio')
 print('Type the folder where to save files:')
 folder = input('path/to/folder: ')
 L.dirname_pattern = folder
 
+# Login
+print('Do you want to login?')
+loginFlag = input('Y/n? ')
+if loginFlag.lower() == 'y':
+    username = input('username: ')
+    L.interactive_login(username)
+
+#loop
 done = 0
 failed = 0
-
 for idx,code in enumerate(posts_codes):
     print('Downloading', code, idx+1, '/', len(posts_codes))
     try:
