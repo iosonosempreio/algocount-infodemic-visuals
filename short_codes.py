@@ -29,12 +29,12 @@ done = []
 failed = []
 for idx,code in enumerate(posts_codes):
     print('Downloading', code, idx+1, '/', len(posts_codes))
-    
+
     try:
         post = Post.from_shortcode(L.context, code)
-        done.append(code)
         L.filename_pattern = code
-        L.download_post(post, code)  
+        L.download_post(post, code)
+        done.append(code)
     except:
         print("Something went wrong, item will be skipped.")
         failed.append(code)
